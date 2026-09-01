@@ -204,7 +204,6 @@ pip install -r requirements.txt
 
 ```text
 .
-.
 ├── wafer_map_cnn_optimization.ipynb     # (핵심) 최종 분석 노트북: 데이터 전처리, CNN 최적화 모델 학습 및 VLM 실험 루프
 ├── README.md                            # 프로젝트 상세 설명서
 ├── requirements.txt                     # 프로젝트 실행을 위한 라이브러리 목록
