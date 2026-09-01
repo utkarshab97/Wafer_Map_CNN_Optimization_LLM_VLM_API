@@ -82,8 +82,9 @@
 ## 📊 핵심 시각화 분석 및 인사이트 (Core Visualizations \& Insights)
 
 ### 1\. 학습 성능 및 손실 추세 분석 (Model Accuracy \& Loss Train Functions)
-
-!\[Training Curve](./images/c\_train\_test\_acc\_loss\_training\_curve\_both\_models.png)
+<p align="center">
+  <img src="./images/c_train_test_acc_loss_training_curve_both_models.png">
+</p>
 
 * **인사이트:** 결합 훈련 데이터셋 C 환경에서 기동된 두 모델의 에폭 추세를 대조 분석한 결과입니다.
 
@@ -94,9 +95,10 @@
 ### 2\. T-HARD 구간 혼동 행렬 분석 (Train \& Test Confusion Matrices for T-HARD)
 
 <p align="center">
-  <img src="./images/client\_version\_a\_b\_c\_train\_test\_confusion\_matrix.png" width="49%" />
-  <img src="./images/my\_optimized\_version\_a\_b\_c\_train\_test\_confusion\_matrix.png" width="49%" />
+  <img src="./images/client_version_a_b_c_train_test_confusion_matrix.png" width="49%" />
+  <img src="./images/my_optimized_version_a_b_c_train_test_confusion_matrix.png" width="49%" />
 </p>
+
 *   **인사이트:** 분류가 가장 모호한 **T-HARD 테스트 데이터셋**만을 추출하여 두 모델의 데이터셋별(A, B, C) 최종 학습 도달 상태를 혼동 행렬로 대조한 지표입니다.
     *   **클라이언트 버전:** T-HARD 성능이 A(Train 0.92 / Test 0.88), B(Train 0.97 / Test 0.83), C(Train 0.83 / Test 0.83)의 파편화된 수치를 사출합니다. 노이즈 데이터셋(B)에 대해 높은 정확도(0.83)를 내는 현상은 훈련 패턴을 제대로 학습하지 못하고 무작위 요행수로 라벨이 맞아떨어진 결과물임을 방증합니다.
     *   **본인 최적화 버전:** 아키텍처 개조를 통해 **Dataset A에서 T-HARD 완벽 분류(Train 0.99 / Test 1.00)**의 일반화 역량을 입증했습니다. 또한 **Dataset C 환경에서도 최종 테스트 정확도 96%(0.96, Train 0.92)**를 확고히 방어하며 노이즈 데이터 결합 시의 리스크 제어 성과를 수치적으로 입증해 냈습니다.
@@ -104,14 +106,17 @@
 ### 3\. 구간별 정확도 종합 분포 비교 (Overall Accuracy Bar Graph)
 
 <p align="center">
-  <img src="./images/client\_version\_a\_b\_c\_acc\_comparison\_bar\_graph.png" width="49%" />
-  <img src="./images/my\_optimized\_version\_a\_b\_c\_acc\_comparison\_bar\_graph.png" width="49%" />
+  <img src="./images/client_version_a_b_c_acc_comparison_bar_graph.png" width="49%" />
+  <img src="./images/my_optimized_version_a_b_c_acc_comparison_bar_graph.png" width="49%" />
 </p>
+
 *   **인사이트:** 두 모델의 3개 데이터셋(A, B, C) 구동 성과를 전체 데이터(`ALL`), 애매한 구간(`T-HARD`), 명확한 구간(`T-EASY`)의 3대 축으로 분할 전개한 멀티 바 차트입니다. 쉬운 결함 형태를 판별하는 `T-EASY` 구간에서는 두 모델 모두 고르게 수율 분류를 이뤄내지만, 실질적인 모델의 성능 격차는 오직 **`T-HARD` 구간에서 결정**됨을 시각적으로 증명합니다. 노이즈 데이터 단독 가동 환경(Model B)에서 본인 모델이 0.46의 고정적 저정확도를 사출하며 1장을 제외한 모든 이미지를 Scratch로 밀어버리는 현상(Coin toss type skew)은, 무작위 찍기가 아닌 잘못 학습된 명확한 인버스 맵핑 룰을 엄격하게 고수하고 있음을 시각화합니다.
 
 ### 4\. 하드 엣지 케이스 분석 (Sample Ambiguous Wafer Map Image)
 
-!\[Ambiguous Sample](./images/my\_optimized\_version\_ambiguous\_wafer\_map\_example\_image.png)
+<p align="center">
+  <img src="./images/my_optimized_version_ambiguous_wafer_map_example_image.png">
+</p>
 
 * **인사이트:** 본인의 최적화 모델 가동 중 Softmax 예측 확률값이 0.5 근방으로 수렴하여 시스템이 최종 분류를 유예한 실제 애매한 유형의 결함 웨이퍼 맵 샘플 이미지입니다. 엔지니어가 직접 개입하는 **Human-in-the-loop 분석의 시작점**이 되는 비즈니스 팩터입니다. 온프레미스 CNN이 해당 하드 케이스를 탐지하는 즉시 상류 공정 파라미터 연동형 Gemini API 라우팅 라인으로 트리거를 전달하는 핵심 파이프라인의 연동 트리거 타겟 구조입니다.
 
@@ -129,13 +134,13 @@
 |**전체 파이프라인 처리 시간 (Total Time)**|10.34 초|**3.76 초**|**전체 시스템 흐름 속도 약 2.7배 이상 혁신적 단축 성공**|
 |**최종 LLM API 총 지연 비용 (Total Cost)**|$0.000916|**$0.000639**|**최적화 선별 호출 메커니즘으로 실전 인프라 가동 시 VLM API 소모 비용 30% 획기적 절감**|
 
-\---
+---
 
 ## 💡 주요 기술적 도전 과제 및 해결 방안 (Core Technical Challenges \& Engineering Value)
 
 ### 1\. Dataset B 실험을 통한 강인한 패턴 추출 역량 입증 (Inverted Accuracy Nuance Analysis)
 
-라벨링 정답의 무결성이 담보되지 않은 30장의 이미지(Dataset B)로 훈련을 진행했을 때, 본인의 최적화 모델은 0.5를 대폭 하회하는 저정확도(0.46)를 기록하는 한편, 모든 시드(Seed) 전반에서 편차가 거의 없는 강력한 복원 성향을 사출했습니다. 이는 무작위 확률로 틀린 것이 아니라, 잘못 주입된 훈련 데이터의 '오인된 정답(Misguided Truth)' 패턴을 완벽히 흡수하여 Test Set에 대해 일관되게 정반대(Inverse)의 추론 결과를 내놓은 것입니다. 즉, 데이터 노이즈 환경에서도 흔들리지 않는 \*\*강력한 결정론적 패턴 추출 능력(High Learning Capacity)\*\*을 역설적으로 입증한 지표입니다.
+라벨링 정답의 무결성이 담보되지 않은 30장의 이미지(Dataset B)로 훈련을 진행했을 때, 본인의 최적화 모델은 0.5를 대폭 하회하는 저정확도(0.46)를 기록하는 한편, 모든 시드(Seed) 전반에서 편차가 거의 없는 강력한 복원 성향을 사출했습니다. 이는 무작위 확률로 틀린 것이 아니라, 잘못 주입된 훈련 데이터의 '오인된 정답(Misguided Truth)' 패턴을 완벽히 흡수하여 Test Set에 대해 일관되게 정반대(Inverse)의 추론 결과를 내놓은 것입니다. 즉, 데이터 노이즈 환경에서도 흔들리지 않는 **강력한 결정론적 패턴 추출 능력(High Learning Capacity)**을 역설적으로 입증한 지표입니다.
 
 반면, 클라이언트의 원본 모델이 동일한 데이터셋에서 0.5 근처 혹은 0.83 수준의 무작위 중간 수치를 기록하며 요동친 현상은 데이터의 노이즈를 학습하지 못한 구조적 무신경함(Less Effective Learning)과 단순 '동전 던지기식 요행수(Random Chance Alignment)'에 기인한 성능 한계임을 밝해냈습니다. 결과적으로 데이터 밀도가 보장된 Dataset C(230장) 환경에서 최적화 모델이 베이스라인을 완벽히 압도함으로써 아키텍처 개조의 최종 우위성을 증명해 냈습니다.
 
@@ -145,13 +150,13 @@
 
 ### 3\. MLOps 관점의 엔드투엔드 파이프라인 자원 비용 최적화 (VLM Cost Defense)
 
-본 프로젝트의 궁극적인 비즈니스 지향점은 정확도 경쟁을 넘어선 \*\*'생산 인프라 비용 방어 구조 수립'\*\*에 있습니다. 업그레이드된 커스텀 CNN 최적화 모델이 대다수의 이미지를 높은 통계적 확신(p-value 극단 수렴)을 바탕으로 정확하게 1차 분류해 내기 때문에 모호한 분류 범주 자체를 축소시켰습니다. 결과적으로 모호 이미지 1장당 소요되는 VLM API 호출 토큰 및 지연 시간을 혁신적으로 절감함과 동시에, 최종 전체 AI 비용을 30% 절감하는 실전형 MLOps 자원 비용 방어 아키텍처를 증명했습니다.
+본 프로젝트의 궁극적인 비즈니스 지향점은 정확도 경쟁을 넘어선 **'생산 인프라 비용 방어 구조 수립'**에 있습니다. 업그레이드된 커스텀 CNN 최적화 모델이 대다수의 이미지를 높은 통계적 확신(p-value 극단 수렴)을 바탕으로 정확하게 1차 분류해 내기 때문에 모호한 분류 범주 자체를 축소시켰습니다. 결과적으로 모호 이미지 1장당 소요되는 VLM API 호출 토큰 및 지연 시간을 혁신적으로 절감함과 동시에, 최종 전체 AI 비용을 30% 절감하는 실전형 MLOps 자원 비용 방어 아키텍처를 증명했습니다.
 
 ### 4\. 신뢰 등급별 언어 양식 강제 (VLM Prompt Engineering Architecture)
 
 LLM/VLM 특유의 '확신을 동반한 환각(Hallucination)' 현상을 제어하기 위해 AI 초안 텍스트 작성 프롬프트를 자산화했습니다. 매핑 데이터의 근거 강도에 따라 동료평가 논문 수준(`연구 및 학계 논문에 따르면 \~로 유력합니다`), 등록 특허 명세서 기준(`\~로 추정됩니다`), 일반 기술 자료 기준(`출처가 특정되지 않았습니다`)의 방어형 서술 정렬 규약을 프롬프트 파이프라인에 이식하여 문장 구조의 정합성과 검증 가능성을 높였습니다.
 
-\---
+---
 
 ## 💻 데이터 및 재현성 (Data \& Reproducibility)
 
@@ -174,10 +179,10 @@ LLM/VLM 특유의 '확신을 동반한 환각(Hallucination)' 현상을 제어�
 
 ```env
 # Google Gemini API 가동 시
-GEMINI\\\_API\\\_KEY=your\\\_actual\\\_gemini\\\_api\\\_key\\\_here
+GEMINI_API_KEY=your_actual_gemini_api_key_here
 
 # OpenAI API 우회 가동 시
-OPENAI\\\_API\\\_KEY=your\\\_actual\\\_openai\\\_api\\\_key\\\_here
+OPENAI_API_KEY=your_actual_openai_api_key_here
 ```
 
 **라이브러리 및 종속성 구성**
@@ -188,10 +193,10 @@ pip install -r requirements.txt
 
 **노트북 구동 순서 절차**
 
-1. 작업 `main` 브랜치 루트 디렉토리에 데이터 파일인 wafer\_set.zip과 수동 가공 완료 파일인 `my\\\_labels.zip`을 함께 배치하십시오.
+1. 작업 `main` 브랜치 루트 디렉토리에 데이터 파일인 wafer\_set.zip과 수동 가공 완료 파일인 `my_labels.zip`을 함께 배치하십시오.
 2. 만약 기본 공급자인 Gemini 대신 OpenAI 인프라를 활용하여 모호 구간 분류 검증을 수행하고자 하는 경우, 코드의 `PROVIDER = 'gemini'` 변수 설정 문자열을 `'openai'`로 변경한 뒤 실행하십시오.
-3. `wafer\\\_cnn\\\_cnn\\\_optimization.ipynb` 노트북을 열고 최상단 전처리 셀부터 하단 PPTX 생성 자동화 엔진까지 시스템 흐름 순서대로 순차 실행(`Run All`)하십시오.
-4. 실시간 인터랙티브 검증 구간 진입 시 본인이 생각하는 수율 가설 판단 척도 변수인 `MY\\\_CALL`('Donut' 또는 'Scratch'), `MY\\\_REASON` 기술문을 바인딩하여 AI 판단 인텔리전스와 대조하십시오.
+3. `wafer_map_cnn_optimization.ipynb` 노트북을 열고 최상단 전처리 셀부터 하단 PPTX 생성 자동화 엔진까지 시스템 흐름 순서대로 순차 실행(`Run All`)하십시오.
+4. 실시간 인터랙티브 검증 구간 진입 시 본인이 생각하는 수율 가설 판단 척도 변수인 `MY_CALL`('Donut' 또는 'Scratch'), `MY_REASON` 기술문을 바인딩하여 AI 판단 인텔리전스와 대조하십시오.
 
 
 
@@ -200,24 +205,24 @@ pip install -r requirements.txt
 ```text
 .
 .
-├── wafer\_map\_cnn\_optimization.ipynb     # (핵심) 최종 분석 노트북: 데이터 전처리, CNN 최적화 모델 학습 및 VLM 실험 루프
+├── wafer_map_cnn_optimization.ipynb     # (핵심) 최종 분석 노트북: 데이터 전처리, CNN 최적화 모델 학습 및 VLM 실험 루프
 ├── README.md                            # 프로젝트 상세 설명서
 ├── requirements.txt                     # 프로젝트 실행을 위한 라이브러리 목록
-├── wafer\_set.zip                        # 원본 이미지 데이터셋 압축 파일 (실행 전 필수 배치!)
-├── my\_labels.zip                        # 수동 분기 가공을 완료한 커스텀 이미지 데이터 압축 파일 (실행 전 필수 배치!)
+├── wafer_set.zip                        # 원본 이미지 데이터셋 압축 파일 (실행 전 필수 배치!)
+├── my_labels.zip                        # 수동 분기 가공을 완료한 커스텀 이미지 데이터 압축 파일 (실행 전 필수 배치!)
 ├── template.pptx                        # PPT 초안 자동 채우기용 원본 서식 템플릿 파일
-├── my\_submission.pptx                   # 파이썬 자동화 엔진을 통해 사출 완료된 최종 보고 발표 자료 자산
+├── my_submission.pptx                   # 파이썬 자동화 엔진을 통해 사출 완료된 최종 보고 발표 자료 자산
 ├── .gitignore                           # Git 업로드 제외 설정 (API Key, 캐시 등)
 └── images/                              # README용 시각화 차트
-    ├── c\_train\_test\_acc\_loss\_training\_curve\_both\_models.png
-    ├── client\_version\_a\_b\_c\_acc\_comparison\_bar\_graph.png
-    ├── client\_version\_a\_b\_c\_train\_test\_confusion\_matrix.png
-    ├── my\_optimized\_version\_a\_b\_c\_acc\_comparison\_bar\_graph.png
-    ├── my\_optimized\_version\_a\_b\_c\_train\_test\_confusion\_matrix.png
-    └── my\_optimized\_version\_ambiguous\_wafer\_map\_example\_image.png
+    ├── c_train_test_acc_loss_training_curve_both_models.png
+    ├── client_version_a_b_c_acc_comparison_bar_graph.png
+    ├── client_version_a_b_c_train_test_confusion_matrix.png
+    ├── my_optimized_version_a_b_c_acc_comparison_bar_graph.png
+    ├── my_optimized_version_a_b_c_train_test_confusion_matrix.png
+    └── my_optimized_version_ambiguous_wafer_map_example_image.png
 ```
 
-\---
+---
 
 ## 🔗 프로젝트 링크
 
